@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <!-- <script src="../assets/js/user.js"></script> -->
+    <style>
+        #show{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div id="show">
+        <h1>Welcome</h1>
+        <h2 id="Name"></h2>
+        <h2 id="Company"></h2>
+        <img id="image" src="" alt="image.png">
+    </div>
+
+    <script>
+        const socket = io()
+socket.on('image', (data)=>
+{
+    if(data){
+        const parsedData = JSON.parse(data)
+        IMAGENAME = parsedData.image;
+        console.log(parsedData)
+        document.getElementById('image').src = `data:image/png;base64,${parsedData.Imgfile}`
+        document.getElementById('image').alt = parsedData.Imgname
+        document.getElementById('Name').innerHTML = parsedData.Name
+        document.getElementById('Company').innerHTML = parsedData.Comapany
+    }
+}
+)
+    </script>
+</body>
+</html>
