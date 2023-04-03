@@ -14,6 +14,15 @@ const http = require('http');
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 
+// const { SerialPort } = require('serialport')
+// const { ReadlineParser } = require('@serialport/parser-readline')
+// const usbport = new SerialPort({ path: 'COM5', baudRate: 115200 })
+
+// const parser = usbport.pipe(new ReadlineParser(({ delimiter: '\r\n' })))
+//     parser.on('data', async function (reader){
+//     console.log(reader)
+// })
+
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile)
 app.use(express.json({limit: '50mb'}));
@@ -33,11 +42,12 @@ mongoose.connect(mongo_URI, {useNewUrlParser:true, useUnifiedTopology:true})
 // app.listen(3000)
 server.listen(3000, () => console.log('Server started on Port 3000'))
 
-io.on('connection', async() => {
+io.on('connection', () => {
     console.log('a user connected')
-    // socket.on('send',async()=>{
-    //     // read data from serial port
-    var id = 'sadasfdaffa';
+    // const parser = usbport.pipe(new ReadlineParser(({ delimiter: '\r\n' })))
+    parser.on('data', async function (reader){
+    console.log(reader)
+    var id = reader;
     await User.findOne({RFID:id})
         .then((data) => {
             const name = data.Name
@@ -52,7 +62,7 @@ io.on('connection', async() => {
                 Imgname: image.split('/').pop(),
                 Imgfile:imageBase64,
                 Name:name, 
-                Comapany:comp,
+                Company:comp,
             }
             // console.log(jsonData)
             const jsonString = JSON.stringify(jsonData)
@@ -62,14 +72,15 @@ io.on('connection', async() => {
             })
         .catch(err => console.error(err))
 })
-
+})
 
 app.post('/addUser', (req,res) => {
         const NewUser = new User ({
-            Name : req.body.name,
-            Company : req.body.company,
+            Name : req.body.NAME,
+            Company : req.body.COMPANY,
             City : req.body.city,
             Email: req.body.email,
+            Phone: req.body.phone,
             Img: req.body.IMGNAME,
             RFID: 'yes'
         }) // for testing
@@ -96,8 +107,7 @@ app.post("/upload", (req, res) => {
      const imgName = `./uploads/image${Date.now()}.png`
     fs.writeFile(imgName, buffer, err => {
           if (err) {  res.status(500).send({ error: 'Error saving image' })} 
-          else {  res.send({ 'ImageName':imgName })
-        }
+          else {  res.send({ 'ImageName':imgName })}
     });  
 });
 
@@ -115,4 +125,8 @@ app.post('/addRFID', async(req, res)=>{
         .catch(err => {
             console.error(err)
         });
+})
+
+app.get('/',(req,res)=>{
+    res.render('index.html')
 })

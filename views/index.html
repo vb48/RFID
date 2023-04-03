@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="../assets/js/script.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="main">
+    <div id="frame1">
+        <button id="button1" onclick="frameTwo()">Click Here</button>
+        <!-- <img src="../assets/images/Frame 1.png" alt=""> -->
+    </div>
+
+    <div id="frame2" style="display: none;">
+        <!-- <img src="../assets/images/Frame 1.png" alt=""> -->
+        <h3>Loading Camera...</h3>
+    </div>
+
+    <div id="frame3" style="display: none;">
+        <!-- <div id="camera"> -->
+            <!-- <button id="opening" onclick="showVideo()">Click To Get Your ID</button> -->
+            <!-- <img src="../assets/images/Frame 1.png" alt=""> -->
+            <video id="video"></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div id="layouts">
+                <button id="startbutton"><i class="fa-solid fa-circle fa-2xl" style="color: #f8c800;"></i></button>
+                <div id="retaker">
+                    <button id="Retake" style="display: none;"  onclick="retake()"><i class="fa-sharp fa-solid fa-rotate-right fa-2xl" style="color: #b55c22;"></i></button>
+                    <button id="next" style="display: none;" type="button" onclick="regPage()"><i class="fa-solid fa-check fa-2xl" style="color: #b55c22;"></i></button>
+                </div>
+            </div>
+    </div>
+    
+        <div id="over" style="width: 100vw; height: 100vh;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <div id="Registration" style="display: none;">
+            <div>
+                <p id="register">REGISTER</p>
+            </div>
+            <div>
+                <form onsubmit="handleSubmit();return false">
+                    <div class="input_wrap">
+                        <label for="fname">Full Name</label>
+                        <input required type="text" id="fname">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="phone">Phone</label>
+                        <input required type="text" id="phone">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="email">Email Id</label>
+                        <input required type="email" id="email1">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="company">Company Name</label>
+                        <input required type="text" id="company">
+                    </div>
+                    <div class="input_wrap">
+                        <label for="city">City</label>
+                        <input required type="text" id="city">
+                    </div>
+                    <div class="submit" style="display: flex; flex-direction: column;">
+                        <input type="submit" value="Submit" id="submit_btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+       </div>
+
+       <div id="PrintBadge" style="width: 100vw; height: 100vh;display: none;flex-direction: column;justify-content: center;align-items: center;">">
+        <div id="badge">
+            <div id="show">
+                <div>
+                    <h1 style="font-size: 80px;">ID Card</h1>
+                </div>
+                <div>
+                    <img id="icard" src="">
+                    <h2 id="Name">Name:&nbsp;</h2>
+                    <h2 id="Company">Company:&nbsp;</h2>
+                </div>
+            </div>
+            <img id="cftlogo" src="../assets/images/Craftech360_Icon Transparent 3.png" alt="">
+            <button id="print" onclick="printBadge()">Print Your Badge</button>
+        </div>
+       </div>
+
+       <div id="rf_id" style="width: 100vw; height: 100vh;display: none;flex-direction: column;justify-content: center;align-items: center;">
+       <div id="rfidForm" style="display: flex;">
+        <form onsubmit="rfidSubmit();return false">
+            <div id="wrapper" class="input_wrap">
+                <label for="tag">Enter The RFID on your Tag</label>
+                <input required type="text" id="rfid">
+            </div>
+            <div id="wrapper" class="input_wrap">
+                <input type="submit" value="Submit" id="submit_btn">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="showThanks" style="display: none;">
+    <img src="../assets/images/Frame 11.png" alt="">
+</div>
+    </div>
+
+</body>
+</html>

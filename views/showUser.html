@@ -7,6 +7,7 @@
     <title>User</title>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../assets/css/style1.css">
     <!-- <script src="../assets/js/user.js"></script> -->
     <style>
         #show{
@@ -18,11 +19,12 @@
     </style>
 </head>
 <body>
+
     <div id="show">
         <h1>Welcome</h1>
         <h2 id="Name"></h2>
         <h2 id="Company"></h2>
-        <img id="image" src="" alt="image.png">
+        <img id="image" src="">
     </div>
 
     <script>
@@ -30,13 +32,14 @@
 socket.on('image', (data)=>
 {
     if(data){
+        document.getElementById('show').style.display = 'flex'
         const parsedData = JSON.parse(data)
         IMAGENAME = parsedData.image;
         console.log(parsedData)
         document.getElementById('image').src = `data:image/png;base64,${parsedData.Imgfile}`
-        document.getElementById('image').alt = parsedData.Imgname
+        // document.getElementById('image').alt = parsedData.Imgname
         document.getElementById('Name').innerHTML = parsedData.Name
-        document.getElementById('Company').innerHTML = parsedData.Comapany
+        document.getElementById('Company').innerHTML = parsedData.Company
     }
 }
 )
