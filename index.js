@@ -33,7 +33,7 @@ app.use(express.static(__dirname+'/public/'));
 
 app.use(cors())
 
-const mongo_URI = 'mongodb+srv://vaibhav:Vaibhav48@cluster0.4ceuo4f.mongodb.net/REG?retryWrites=true&w=majority'
+const mongo_URI = ''
 
 mongoose.connect(mongo_URI, {useNewUrlParser:true, useUnifiedTopology:true})
     .then(result => {console.log('Connected To DB')})
